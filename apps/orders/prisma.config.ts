@@ -1,3 +1,4 @@
+import 'dotenv/config'; // manter aqui mesmo usando o 'env' + zod 
 import { env } from './src/env';
 import { defineConfig } from 'prisma/config';
 
