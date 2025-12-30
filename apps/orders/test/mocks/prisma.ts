@@ -1,6 +1,6 @@
 export const MockPrismaService = () => ({
-  $connect: jest.fn(),
-  $disconnect: jest.fn(),
-  onModuleInit: jest.fn(),
-  onModuleDestroy: jest.fn(),
+  $connect: vi.fn(),
+  $disconnect: vi.fn(),
+  onModuleInit: vi.fn(),
+  onModuleDestroy: vi.fn(),
 });
