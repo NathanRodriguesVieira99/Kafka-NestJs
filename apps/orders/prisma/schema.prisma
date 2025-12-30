@@ -1,0 +1,18 @@
+/**
+ * achei essa config pro prisma que funcione com NestJs nessa issue do github
+ * https://github.com/prisma/prisma/issues/28627
+ * por enquanto é a única que funciona!
+ */
+
+generator client {
+  provider               = "prisma-client"
+  output                 = "../src/infra/database/generated"
+  binaryTargets          = ["native", "linux-musl", "rhel-openssl-3.0.x"]
+  moduleFormat           = "cjs" // na issue tava com "esm" mas "cjs" funciona (talvez mudar para esm ao usar o Vitest, pois por default o NestJs usa Jest)
+  generatedFileExtension = "ts"
+  importFileExtension    = "ts"
+}
+
+datasource db {
+  provider = "mysql"
+}
