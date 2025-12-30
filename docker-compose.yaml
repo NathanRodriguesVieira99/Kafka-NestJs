@@ -6,6 +6,8 @@ services:
       - "3306:3306"
     environment:
       MARIADB_ROOT_PASSWORD: "mariadb"
+      MARIADB_PASSWORD: "mariadb"
+      MARIADB_USER: "mariadb"
       MARIADB_DATABASE: "estudos_kafka"
     volumes:
       - mariadb_data:/var/lib/mysql
