@@ -16,3 +16,19 @@ generator client {
 datasource db {
   provider = "mysql"
 }
+
+model Order {
+  id        Int         @id @default(autoincrement())
+  price     Int
+  client_id Int
+  createdAt DateTime    @default(now()) @map("crated_at")
+  status    OrderStatus
+
+  @@map("orders")
+}
+
+enum OrderStatus {
+  PENDING
+  PAYED
+  CANCELED
+}
