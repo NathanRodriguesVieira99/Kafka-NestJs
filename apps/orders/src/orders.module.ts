@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PrismaService } from './infra/database/prisma.service';
+import { PrismaModule } from './infra/database/prisma.module';
+import { HttpModule } from './infra/http/http.module';
 
 @Module({
   imports: [
@@ -8,7 +9,8 @@ import { PrismaService } from './infra/database/prisma.service';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    PrismaModule,
+    HttpModule,
   ],
-  providers: [PrismaService],
 })
 export class OrdersModule {}
