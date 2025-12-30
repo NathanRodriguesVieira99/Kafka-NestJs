@@ -1,0 +1,78 @@
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:11.5
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: "mariadb"
+      MARIADB_DATABASE: "estudos_kafka"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - kafka-network
+
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-kafka:7.8.0
+    hostname: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      # KRaft
+      CLUSTER_ID: "my-cluster-id"
+      KAFKA_NODE_ID: "1"
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093"
+      KAFKA_CONTROLLER_QUORUM_BOOTSTRAP_SERVERS: "kafka:9093"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      # Listeners
+      KAFKA_LISTENERS: "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+      # Replication & ISR
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    healthcheck:
+      test: kafka-broker-api-versions --bootstrap-server=localhost:9092 || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    networks:
+      - kafka-network
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: "local-kafka"
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka:9092"
+      DYNAMIC_CONFIG_ENABLED: "true"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - kafka-network
+
+volumes:
+  mariadb_data:
+  kafka_data:
+
+networks:
+  kafka-network:
+    driver: bridge
