@@ -1,4 +1,4 @@
-// !! SUGESTÃO DA IA PARA USAR O DOTENV DESSA FORMA PARA VALIDAR O .env DESSE APP
+// !! SUGESTÃO DA IA PARA USAR O DOTENV DESSA FORMA PARA VALIDAR O .env DESSE APP (NÃO SEI COMO USAR ISSO PARA TER ACESSO A OUTROS ENV TIPO test, e2e etc)
 import { config } from 'dotenv';
 import { join } from 'node:path';
 config({ path: join(process.cwd(), 'apps/orders/.env') });
