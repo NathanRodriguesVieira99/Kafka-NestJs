@@ -16,8 +16,8 @@
     "test": "vitest run --bail 1",
     "test:watch": "vitest --bail 1",
     "test:cov": "vitest run --coverage --no-file-parallelism",
-    "test:e2e": "NODE_ENV=e2e vitest run --config ./vitest.config.e2e.ts",
-    "test:cov:e2e": "NODE_ENV=e2e vitest run --coverage --no-file-parallelism --config ./vitest.config.e2e.ts",
+    "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
+    "test:cov:e2e": " vitest run --coverage --no-file-parallelism --config ./vitest.config.e2e.ts",
     "docker:dev": "docker compose up"
   },
   "dependencies": {

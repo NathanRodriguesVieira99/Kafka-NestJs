@@ -18,7 +18,6 @@ services:
       start_period: 30s
     volumes:
       - mariadb_data:/var/lib/mysql
-      - ${PWD}/.docker/e2e-test-db.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - kafka-network
 
