@@ -17,7 +17,7 @@ export const envSchema = z.object({
   MARIADB_PORT: z.coerce.number().default(3306),
   // ========== ENV ==========
   NODE_ENV: z
-    .enum(['development', 'test', 'production'])
+    .enum(['development', 'test', 'production', 'e2e'])
     .default('development'),
   // ========== PORT ==========
   PORT: z.coerce.number().default(3333),
@@ -36,4 +36,4 @@ if (!_env.success && !isPrisma) {
 
 export type Env = z.infer<typeof envSchema>;
 
-export const env = _env.success ? _env.data : {} as Env; // !! valida para as variáveis não serem undefined
+export const env = _env.success ? _env.data : ({} as Env); // !! valida para as variáveis não serem undefined

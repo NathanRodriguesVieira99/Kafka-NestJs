@@ -10,13 +10,14 @@ export default defineConfig({
     root: './',
     environment: 'node',
     hookTimeout: 60000,
+    testTimeout: 60000,
     fileParallelism: false,
     coverage: {
       reportsDirectory: './coverage',
       provider: 'v8',
       reporter: ['text', 'html', 'lcov', 'cobertura'],
       include: ['src/**/*.ts'],
-       exclude: [
+      exclude: [
         '**/types/**',
         '**/*.d.ts',
         '**/*.spec.ts',

@@ -9,8 +9,6 @@ services:
       MARIADB_PASSWORD: "mariadb"
       MARIADB_USER: "mariadb"
       MARIADB_DATABASE: "estudos_kafka"
-    volumes:
-      - mariadb_data:/var/lib/mysql
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
@@ -18,6 +16,9 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ${PWD}/.docker/e2e-test-db.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - kafka-network
 
