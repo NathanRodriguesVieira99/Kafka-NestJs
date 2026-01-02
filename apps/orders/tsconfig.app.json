@@ -4,6 +4,5 @@
     "declaration": false,
     "outDir": "../../dist/apps/orders"
   },
-  
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }
