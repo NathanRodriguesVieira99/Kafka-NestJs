@@ -18,7 +18,9 @@
     "test:cov": "vitest run --coverage --no-file-parallelism",
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
     "test:cov:e2e": " vitest run --coverage --no-file-parallelism --config ./vitest.config.e2e.ts",
-    "docker:dev": "docker compose up"
+    "docker:dev": "docker compose up",
+    "prisma:migrate:orders": "pnpm prisma migrate dev --config apps/orders/prisma.config.ts",
+    "prisma:migrate:payments": "pnpm prisma migrate dev --config apps/payments/prisma.config.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
