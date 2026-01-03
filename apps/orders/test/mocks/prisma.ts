@@ -3,4 +3,8 @@ export const MockPrismaService = () => ({
   $disconnect: vi.fn(),
   onModuleInit: vi.fn(),
   onModuleDestroy: vi.fn(),
+  order: {
+    findMany: vi.fn(),
+    create: vi.fn(),
+  },
 });
