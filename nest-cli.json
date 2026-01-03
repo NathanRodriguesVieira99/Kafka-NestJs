@@ -10,7 +10,6 @@
   "monorepo": true,
   "root": "apps/orders",
   "projects": {
-    
     "orders": {
       "type": "application",
       "root": "apps/orders",
@@ -18,6 +17,15 @@
       "sourceRoot": "apps/orders/src",
       "compilerOptions": {
         "tsConfigPath": "apps/orders/tsconfig.app.json"
+      }
+    },
+    "payments": {
+      "type": "application",
+      "root": "apps/payments",
+      "entryFile": "main",
+      "sourceRoot": "apps/payments/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/payments/tsconfig.app.json"
       }
     }
   }
