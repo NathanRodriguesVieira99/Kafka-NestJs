@@ -1,0 +1,28 @@
+generator client {
+  provider               = "prisma-client"
+  output                 = "../src/infra/database/generated"
+  binaryTargets          = ["native", "linux-musl", "rhel-openssl-3.0.x"]
+  moduleFormat           = "esm"
+  generatedFileExtension = "ts"
+  importFileExtension    = "ts"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum PaymentStatus {
+  APPROVED
+  REJECTED
+}
+
+model Payment {
+  id        Int           @id @default(autoincrement())
+  amount    Float
+  order_id  Int
+  client_id Int
+  createdAt DateTime      @default(now()) @map("crated_at")
+  status    PaymentStatus
+
+  @@map("payments")
+}
