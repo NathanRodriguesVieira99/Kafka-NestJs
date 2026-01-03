@@ -8,7 +8,7 @@ generator client {
   provider               = "prisma-client"
   output                 = "../src/infra/database/generated"
   binaryTargets          = ["native", "linux-musl", "rhel-openssl-3.0.x"]
-  moduleFormat           = "cjs" // na issue tava com "esm" mas "cjs" funciona (talvez mudar para esm ao usar o Vitest, pois por default o NestJs usa Jest)
+  moduleFormat           = "esm" 
   generatedFileExtension = "ts"
   importFileExtension    = "ts"
 }
