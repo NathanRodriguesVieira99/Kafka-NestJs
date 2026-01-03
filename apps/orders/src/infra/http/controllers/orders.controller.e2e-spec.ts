@@ -38,4 +38,17 @@ describe('OrdersController (E2E)', () => {
 
     expect(res.statusCode).toBe(200);
   });
+
+  it('[POST] /orders - should create a order', async () => {
+    const order = {
+      client_id: Math.random(),
+      price: 4000,
+    };
+
+    const res = await request(app.getHttpServer()).post('/orders').send(order);
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toHaveProperty('status');
+    expect(res.body).toHaveProperty('id');
+  });
 });
