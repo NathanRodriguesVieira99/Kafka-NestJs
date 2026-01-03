@@ -18,6 +18,7 @@ export class PrismaService
   constructor() {
     const adapter = new PrismaMariaDb({
       host: env.MARIADB_HOST,
+      port: env.MARIADB_PORT,
       user: env.MARIADB_USER,
       password: env.MARIADB_PASSWORD,
       database: env.MARIADB_DATABASE,
