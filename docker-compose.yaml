@@ -1,6 +1,6 @@
 services:
-  mariadb:
-    container_name: mariadb
+  mariadb_orders:
+    container_name: mariadb_orders
     image: mariadb:11.5
     ports:
       - "3306:3306"
@@ -17,7 +17,29 @@ services:
       retries: 5
       start_period: 30s
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mariadb_orders_data:/var/lib/mysql
+    networks:
+      - kafka-network
+
+  mariadb_payments:
+    container_name: mariadb_payments
+    image: mariadb:11.5
+    ports:
+      - "3307:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: "mariadb_payments"
+      MARIADB_USER: "mariadb_payments"
+      MARIADB_PASSWORD: "mariadb_payments"
+      MARIADB_DATABASE: "estudos_kafka_payments"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - mariadb_payments_data:/var/lib/mysql
     networks:
       - kafka-network
 
@@ -72,7 +94,8 @@ services:
       - kafka-network
 
 volumes:
-  mariadb_data:
+  mariadb_orders_data:
+  mariadb_payments_data:
   kafka_data:
 
 networks:
